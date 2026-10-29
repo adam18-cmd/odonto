@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odonto - Laghouat Year 1</title>
+    <title>Odonto - 1st Year Dental Medicine Hub | Laghouat</title>
     
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600;1,700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Chart.js for Pie Chart -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -21,13 +19,10 @@
             theme: {
                 extend: {
                     colors: {
-                        'od-bg': '#f3f1eb',
-                        'od-dark': '#1c2826',
-                        'od-light': '#ffffff',
-                        'od-border': '#d8d4cb',
-                        'od-muted': '#6b726c',
-                        'od-card': '#eceae4',
-                        'od-accent': '#2a423a',
+                        'od-bg': '#f4f1eb',
+                        'od-dark': '#2c4c3b',
+                        'od-accent': '#3a634d',
+                        'od-surface': '#ffffff',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -37,676 +32,286 @@
             }
         }
     </script>
+
     <style>
         body {
-            background-color: #f3f1eb;
-            color: #1c2826;
+            background-color: #f4f1eb;
+            color: #2c4c3b;
+            scroll-behavior: smooth;
         }
-        .hide { display: none !important; }
-        
-        /* Custom Scrollbar for Chat & Planner */
-        .chat-scroll::-webkit-scrollbar {
-            width: 6px;
+        .animate-gradient {
+            background-size: 200% auto;
+            animation: textGradient 4s linear infinite;
         }
-        .chat-scroll::-webkit-scrollbar-track {
-            background: transparent;
+        @keyframes textGradient {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
-        .chat-scroll::-webkit-scrollbar-thumb {
-            background-color: #d8d4cb;
-            border-radius: 10px;
-        }
-
-        /* Toast Notification */
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #1c2826;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 16px;
-            position: fixed;
-            z-index: 9999;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s, bottom 0.3s;
-        }
-        #toast.show {
-            visibility: visible;
-            opacity: 1;
-            bottom: 50px;
-        }
-
-        /* Animated Gemini Gradient (Background & Text) */
-        .bg-gemini-animated {
-            background: linear-gradient(270deg, #1a73e8, #a142f4, #e34133, #1a73e8);
-            background-size: 300% 300%;
-            animation: gradient-flow 6s ease infinite;
-            color: #ffffff;
-            border: none;
-        }
-
         .text-gemini-animated {
-            background: linear-gradient(270deg, #1a73e8, #a142f4, #e34133, #1a73e8);
-            background-size: 300% 300%;
-            animation: gradient-flow 6s ease infinite;
+            background: linear-gradient(to right, #3b82f6, #a855f7, #ec4899, #3b82f6);
+            background-size: 200% auto;
+            color: transparent;
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent;
+            animation: textGradient 4s linear infinite;
         }
-
-        @keyframes gradient-flow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f4f1eb; }
+        ::-webkit-scrollbar-thumb { background: #3a634d; border-radius: 4px; }
     </style>
 </head>
-<body class="font-sans antialiased min-h-screen flex flex-col">
+<body class="font-sans antialiased relative pb-32">
 
     <!-- Navbar -->
-    <nav class="border-b border-od-border py-4 px-6 md:px-12 flex justify-between items-center bg-od-bg sticky top-0 z-40">
-        <div class="flex items-center gap-4 cursor-pointer" onclick="navigate('home')">
-            <div class="w-10 h-10 rounded-full bg-od-dark text-od-bg flex items-center justify-center font-serif text-xl">0</div>
-            <div>
-                <h1 class="font-medium text-lg leading-tight">Odonto</h1>
-                <p class="text-xs text-od-muted tracking-widest uppercase">Laghouat · Year 1</p>
+    <nav class="sticky top-0 z-40 bg-[#f4f1eb]/80 backdrop-blur-md border-b border-od-dark/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="bg-od-dark text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">0</span>
+                <div>
+                    <h1 class="font-serif text-xl font-semibold leading-tight">Odonto</h1>
+                    <p class="text-[10px] tracking-widest uppercase opacity-70">Laghouat · Year 1</p>
+                </div>
             </div>
-        </div>
-        
-        <div class="hidden md:flex gap-8 text-sm font-medium text-od-muted">
-            <button onclick="navigate('home')" class="hover:text-od-dark transition">Curriculum</button>
-            <button onclick="toggleChat()" class="hover:text-od-dark transition">Study Assistant</button>
-            <button onclick="document.getElementById('modules-section').scrollIntoView({behavior: 'smooth'})" class="hover:text-od-dark transition">Modules</button>
-        </div>
+            
+            <div class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="#modules" class="hover:opacity-70 transition-opacity">Curriculum</a>
+                <a href="#dashboard" class="hover:opacity-70 transition-opacity">My Dashboard</a>
+            </div>
 
-        <div class="flex gap-3">
-            <button id="nav-dashboard-btn" onclick="navigate('dashboard')" class="text-sm font-medium px-4 py-2 rounded-full border border-od-border hover:bg-od-border transition hide">My dashboard</button>
-            <button id="nav-login-btn" onclick="mockLogin()" class="text-sm font-medium px-4 py-2 rounded-full bg-od-dark text-od-bg hover:bg-od-accent transition flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
-                Sign in
-            </button>
-            <button onclick="navigate('contributor')" class="text-sm font-medium px-4 py-2 rounded-full border border-od-border hover:bg-od-border transition flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                Contributor
-            </button>
+            <div class="flex gap-4">
+                <button id="nav-signin" class="text-sm font-medium border border-od-dark px-4 py-1.5 rounded-full hover:bg-od-dark hover:text-white transition-colors">Sign in</button>
+            </div>
         </div>
     </nav>
 
-    <!-- VIEWS -->
-    <main class="flex-grow">
+    <!-- Hero Section -->
+    <header class="max-w-7xl mx-auto px-6 pt-20 pb-16 grid md:grid-cols-2 gap-12 items-center">
+        <div>
+            <p class="text-xs tracking-widest uppercase opacity-70 mb-4 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-od-dark rounded-full inline-block"></span>
+                Amar Telidji University · Laghouat
+            </p>
+            <h2 class="text-5xl md:text-6xl font-serif leading-[1.1] mb-6 text-gemini-animated pb-2">
+                First-year dentistry, finally in order.
+            </h2>
+            <p class="text-lg opacity-80 mb-8 max-w-md leading-relaxed">
+                Nine modules. Every lecture, reference and past EMD paper in a single calm place — with a Gemini tutor ready to help.
+            </p>
+        </div>
         
-        <!-- ================= HOME VIEW ================= -->
-        <div id="view-home" class="block">
-            
-            <!-- Hero Section -->
-            <section class="max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-24 grid grid-cols-1 lg:grid-cols-2 gap-16 border-b border-od-border">
-                <div class="flex flex-col justify-center">
-                    <p class="text-xs uppercase tracking-widest text-od-dark mb-6 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-od-accent block"></span>
-                        Amar Telidji University · Laghouat
-                    </p>
-                    <h2 class="font-serif text-5xl md:text-7xl mb-6 text-gemini-animated leading-tight pb-2">First-year dentistry, <br><span class="italic">finally in order.</span></h2>
-                    <p class="text-lg text-od-dark mb-10 max-w-lg leading-relaxed">Nine modules. Every lecture, reference and past EMD paper in a single calm place — with a Gemini tutor that knows exactly what you are studying.</p>
-                    
-                    <div class="bg-od-card rounded-2xl p-2 flex items-center shadow-sm border border-od-border">
-                        <div class="pl-4 text-od-accent">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                        </div>
-                        <input type="text" placeholder="Ask a question, or request practice MCQs..." class="bg-transparent border-none outline-none flex-grow px-4 text-od-dark placeholder-od-muted" id="hero-ask-input" onkeypress="if(event.key === 'Enter') handleHeroAsk()">
-                        <button onclick="handleHeroAsk()" class="bg-od-dark text-od-bg px-6 py-3 rounded-xl font-medium hover:bg-od-accent transition">Ask →</button>
-                    </div>
-                    <p class="text-xs text-od-muted mt-4">Powered by Google Gemini · answers grounded in the published course materials</p>
-                    
-                    <div class="flex gap-3 mt-6">
-                        <button onclick="fillAsk('Generate 5 MCQs on enzyme inhibition')" class="text-xs border border-od-border rounded-full px-4 py-2 hover:bg-od-card transition">Generate 5 MCQs</button>
-                        <button onclick="fillAsk('Explain enzyme kinetics simply')" class="text-xs border border-od-border rounded-full px-4 py-2 hover:bg-od-card transition">Explain enzyme kinetics</button>
-                        <button onclick="fillAsk('Anatomy revision plan')" class="text-xs border border-od-border rounded-full px-4 py-2 hover:bg-od-card transition">Anatomy revision plan</button>
-                    </div>
+        <div class="bg-od-dark text-white p-8 rounded-3xl relative overflow-hidden shadow-xl">
+            <div class="relative z-10">
+                <div class="flex justify-between items-start mb-12">
+                    <p class="text-xs tracking-widest uppercase opacity-70">Curriculum Index</p>
+                    <p class="text-xs tracking-widest uppercase text-green-400">● Year 1</p>
                 </div>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li class="flex justify-between items-center border-b border-white/10 pb-2"><span class="opacity-50 mr-4">01</span> <span class="flex-1">Biochemistry</span> <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded opacity-70">EMD</span></li>
+                    <li class="flex justify-between items-center border-b border-white/10 pb-2"><span class="opacity-50 mr-4">02</span> <span class="flex-1">Biomathematics & Statistics</span> <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded opacity-70">LESSONS</span></li>
+                    <li class="flex justify-between items-center border-b border-white/10 pb-2"><span class="opacity-50 mr-4">03</span> <span class="flex-1">Biophysics</span> <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded opacity-70">REFS</span></li>
+                    <li class="flex justify-between items-center pb-2"><span class="opacity-50 mr-4">04</span> <span class="flex-1">Chemistry</span> <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded opacity-70">EMD</span></li>
+                </ul>
+            </div>
+        </div>
+    </header>
 
-                <!-- Right Side Index Panel -->
-                <div class="bg-[#e9eadf] rounded-3xl p-8 relative border border-[#d2d4c4]">
-                    <div class="flex justify-between items-center mb-8 border-b border-[#d2d4c4] pb-4">
-                        <h3 class="text-xs uppercase tracking-widest text-od-dark">Curriculum Index</h3>
-                        <span class="text-xs font-medium flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-od-accent block"></span> YEAR 1</span>
-                    </div>
-                    
-                    <ul class="space-y-6 text-sm font-medium mb-12">
-                        <li class="flex justify-between items-center group cursor-pointer">
-                            <span class="text-od-muted group-hover:text-od-dark transition">01 &nbsp;&nbsp; Biochemistry</span>
-                            <span class="text-xs text-od-muted uppercase">EMD</span>
-                        </li>
-                        <li class="flex justify-between items-center group cursor-pointer">
-                            <span class="text-od-muted group-hover:text-od-dark transition">02 &nbsp;&nbsp; Biomathematics & Statistics</span>
-                            <span class="text-xs text-od-muted uppercase">LESSONS</span>
-                        </li>
-                        <li class="flex justify-between items-center group cursor-pointer">
-                            <span class="text-od-muted group-hover:text-od-dark transition">03 &nbsp;&nbsp; Biophysics</span>
-                            <span class="text-xs text-od-muted uppercase">REFS</span>
-                        </li>
-                        <li class="flex justify-between items-center group cursor-pointer">
-                            <span class="text-od-muted group-hover:text-od-dark transition">04 &nbsp;&nbsp; Chemistry</span>
-                            <span class="text-xs text-od-muted uppercase">EMD</span>
-                        </li>
-                    </ul>
-
-                    <div class="bg-gemini-animated rounded-2xl p-6 text-white mt-auto cursor-pointer shadow-md hover:scale-[1.02] transition-transform" onclick="toggleChat()">
-                        <p class="text-xs uppercase tracking-widest text-white/80 mb-2">Ask the Tutor</p>
-                        <p class="font-serif text-lg font-medium">"Generate 5 MCQs on enzyme inhibition"</p>
-                        <div class="w-12 h-1 bg-white/50 mt-4 rounded-full"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Modules Section -->
-            <section id="modules-section" class="max-w-7xl mx-auto px-6 md:px-12 py-24 border-b border-od-border">
-                <div class="flex justify-between items-end mb-16">
-                    <div>
-                        <h3 class="text-xs uppercase tracking-widest text-od-accent mb-4">The Curriculum</h3>
-                        <h2 class="font-serif text-4xl text-od-dark">Nine modules, one structure.</h2>
-                    </div>
-                    <p class="text-sm text-od-muted max-w-xs text-right hidden md:block">Every module holds the same three resource sets, so you always know exactly where a file lives.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="modules-grid">
-                    <!-- Populated by JS -->
-                </div>
-            </section>
-
-            <!-- How it works -->
-            <section class="max-w-7xl mx-auto px-6 md:px-12 py-24 border-b border-od-border">
-                <h3 class="text-xs uppercase tracking-widest text-od-accent mb-4">How it works</h3>
-                <h2 class="font-serif text-4xl text-od-dark mb-16">Study in three moves.</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-od-border pt-12">
-                    <div>
-                        <span class="text-xs text-od-accent font-medium mb-4 block">01</span>
-                        <h4 class="font-serif text-xl mb-3">Pick your module</h4>
-                        <p class="text-sm text-od-muted leading-relaxed">Each of the nine modules opens a page organised into lessons, references and past EMD papers — no more hunting through group chats.</p>
-                    </div>
-                    <div>
-                        <span class="text-xs text-od-accent font-medium mb-4 block">02</span>
-                        <h4 class="font-serif text-xl mb-3">Ask the assistant</h4>
-                        <p class="text-sm text-od-muted leading-relaxed">Search across the published materials in plain language, or ask a question and get an answer grounded in your own course content.</p>
-                    </div>
-                    <div>
-                        <span class="text-xs text-od-accent font-medium mb-4 block">03</span>
-                        <h4 class="font-serif text-xl mb-3">Test yourself</h4>
-                        <p class="text-sm text-od-muted leading-relaxed">Request practice MCQs on any topic and check your answers with explanations before the real EMD arrives.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CTA Contributor & Developer Signature -->
-            <section class="max-w-7xl mx-auto px-6 md:px-12 py-24">
-                <div class="bg-od-dark rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg">
-                    <div class="text-od-bg max-w-xl">
-                        <p class="text-xs uppercase tracking-widest text-gray-400 mb-4 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Restricted Access</p>
-                        <h2 class="font-serif text-4xl mb-4">On the teaching team?</h2>
-                        <p class="text-gray-300 text-sm leading-relaxed">Approved contributors can add Drive links or upload files, sort them by module and category, and publish only what has been reviewed.</p>
-                    </div>
-                    <button onclick="navigate('contributor')" class="bg-od-bg text-od-dark px-8 py-4 rounded-full font-medium hover:bg-gray-200 transition shrink-0">Open contributor portal →</button>
-                </div>
-                
-                <!-- Elegant Developer Attribution -->
-                <div class="mt-20 flex flex-col items-center justify-center">
-                    <div class="flex items-center gap-4 sm:gap-6 opacity-90 hover:opacity-100 transition duration-500">
-                        <!-- Dark Green Line Left -->
-                        <div class="h-px w-12 sm:w-24 bg-gradient-to-r from-transparent to-[#2a423a]"></div>
-                        
-                        <!-- Signature Text -->
-                        <div class="text-center">
-                            <span class="block text-[10px] uppercase tracking-widest text-od-muted mb-1.5 font-sans">Developed & Engineered by</span>
-                            <span class="font-serif text-2xl md:text-4xl italic font-bold tracking-wide text-gemini-animated pb-1 inline-block">Essed Islam Adem</span>
-                        </div>
-                        
-                        <!-- Dark Green Line Right -->
-                        <div class="h-px w-12 sm:w-24 bg-gradient-to-l from-transparent to-[#2a423a]"></div>
-                    </div>
-                </div>
-            </section>
+    <!-- My Dashboard Section -->
+    <section id="dashboard" class="max-w-7xl mx-auto px-6 py-20 border-t border-od-dark/10">
+        <div class="mb-12">
+            <p class="text-xs tracking-widest uppercase opacity-70 mb-2">Student Area</p>
+            <h2 class="text-3xl font-serif">My Dashboard</h2>
         </div>
 
-        <!-- ================= DASHBOARD VIEW ================= -->
-        <div id="view-dashboard" class="hide">
-            <div class="max-w-7xl mx-auto px-6 md:px-12 pt-12 pb-24">
-                
-                <!-- Header Stats -->
-                <div class="bg-od-dark rounded-3xl p-10 text-od-bg mb-12">
-                    <p class="text-xs uppercase tracking-widest text-gray-400 mb-4" id="dash-greeting">Good evening</p>
-                    <h2 class="font-serif text-4xl mb-12">Your study year, in one place</h2>
-                    
-                    <div class="flex justify-between text-xs mb-2">
-                        <span class="uppercase tracking-widest text-gray-400">Study Progress</span>
-                        <span class="font-medium">0/8 files · 0%</span>
-                    </div>
-                    <div class="w-full bg-gray-800 rounded-full h-2 mb-10">
-                        <div class="bg-od-bg h-2 rounded-full" style="width: 0%"></div>
-                    </div>
+        <div class="grid lg:grid-cols-3 gap-6">
+            <!-- Study Planner -->
+            <div class="lg:col-span-1 bg-white border border-od-dark/10 p-6 rounded-2xl shadow-sm h-[400px] flex flex-col">
+                <h3 class="text-lg font-serif mb-4 flex justify-between items-center">
+                    Daily Tasks
+                    <span class="text-xs font-sans bg-od-dark/10 px-2 py-1 rounded text-od-dark" id="task-count">0/0</span>
+                </h3>
+                <form id="todo-form" class="flex gap-2 mb-4">
+                    <input type="text" id="todo-input" placeholder="Add a new study task..." class="flex-1 text-sm border border-od-dark/20 rounded-lg px-3 py-2 focus:outline-none focus:border-od-dark transition" required>
+                    <button type="submit" class="bg-od-dark text-white px-3 py-2 rounded-lg text-sm hover:bg-od-accent transition">+</button>
+                </form>
+                <div class="overflow-y-auto flex-1 pr-2 space-y-2" id="todo-list"></div>
+            </div>
 
-                    <div class="grid grid-cols-3 gap-6 border-t border-gray-700 pt-8">
-                        <div>
-                            <p class="text-xs uppercase text-gray-400 mb-1 flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Completed</p>
-                            <p class="text-2xl font-serif">0</p>
-                        </div>
-                        <div>
-                            <p class="text-xs uppercase text-gray-400 mb-1 flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg> Modules Done</p>
-                            <p class="text-2xl font-serif">0/9</p>
-                        </div>
-                        <div>
-                            <p class="text-xs uppercase text-gray-400 mb-1 flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg> Bookmarks</p>
-                            <p class="text-2xl font-serif">0</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Planner, Chart & Timetable Grid -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    
-                    <!-- To-Do List (Study Planner) -->
-                    <div class="lg:col-span-2 bg-od-card rounded-3xl p-8 border border-od-border flex flex-col h-full shadow-sm">
-                        <h3 class="font-serif text-2xl mb-2 text-od-dark">Study Planner</h3>
-                        <p class="text-sm text-od-muted mb-6">Keep track of your daily tasks and assignments</p>
-                        
-                        <div class="flex gap-2 mb-6">
-                            <input type="text" id="todo-input" placeholder="Add a new task..." class="bg-white border border-od-border rounded-xl px-4 py-3 flex-grow text-sm outline-none focus:border-od-accent transition shadow-inner" onkeypress="if(event.key === 'Enter') addTodo()">
-                            <button onclick="addTodo()" class="bg-od-dark text-od-bg px-6 py-3 rounded-xl text-sm font-medium hover:bg-od-accent transition">Add</button>
-                        </div>
-                        
-                        <ul id="todo-list" class="space-y-3 flex-grow overflow-y-auto max-h-[350px] chat-scroll pr-2">
-                            <!-- Sample Task -->
-                            <li class="flex items-center justify-between bg-white p-4 rounded-xl border border-od-border transition-all shadow-sm">
-                                <div class="flex items-center gap-3">
-                                    <input type="checkbox" onchange="toggleTodo(this)" class="w-5 h-5 text-od-accent rounded focus:ring-od-accent cursor-pointer">
-                                    <span class="text-sm font-medium text-od-dark transition-all duration-300">Review Anatomy CH1</span>
-                                </div>
-                                <button onclick="deleteTodo(this)" class="text-gray-400 hover:text-red-500 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Pie Chart (Weekly Progress) -->
-                    <div class="bg-od-card rounded-3xl p-8 border border-od-border text-center flex flex-col shadow-sm">
-                        <h3 class="font-serif text-2xl mb-2 self-start text-left w-full text-od-dark">Weekly Progress</h3>
-                        <p class="text-sm text-od-muted mb-8 self-start text-left w-full">Completed vs Pending Tasks</p>
-                        
-                        <div class="flex-grow flex items-center justify-center relative min-h-[250px]">
-                            <canvas id="progressChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Weekly Timetable -->
-                    <div class="lg:col-span-3 bg-od-card rounded-3xl p-8 border border-od-border flex flex-col shadow-sm overflow-x-auto">
-                        <div class="flex justify-between items-center mb-6">
-                            <div>
-                                <h3 class="font-serif text-2xl mb-2 text-od-dark">Weekly Timetable</h3>
-                                <p class="text-sm text-od-muted">Organize your lectures and sessions (Sun - Thu)</p>
-                            </div>
-                            <button onclick="addTimetableRow()" class="text-xs bg-white border border-od-border text-od-dark rounded-full px-4 py-2 hover:bg-gray-50 transition shadow-sm font-medium">+ Add Row</button>
-                        </div>
-
-                        <div class="min-w-[700px]">
-                            <div class="grid grid-cols-6 gap-3 mb-2 text-xs font-semibold uppercase tracking-widest text-od-muted text-center pb-3 border-b border-od-border">
-                                <div>Time</div>
-                                <div>Sunday</div>
-                                <div>Monday</div>
-                                <div>Tuesday</div>
-                                <div>Wednesday</div>
-                                <div>Thursday</div>
-                            </div>
-                            <div id="timetable-body" class="space-y-3">
-                                <!-- Initial Row -->
-                                <div class="grid grid-cols-6 gap-3 text-sm">
-                                    <input type="text" placeholder="08:00" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark font-medium shadow-sm">
-                                    <input type="text" placeholder="Anatomy" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark shadow-sm">
-                                    <input type="text" placeholder="Biochem" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark shadow-sm">
-                                    <input type="text" placeholder="Biophysics" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark shadow-sm">
-                                    <input type="text" placeholder="TD" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark shadow-sm">
-                                    <input type="text" placeholder="Stats" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark shadow-sm">
-                                </div>
-                            </div>
+            <!-- Weekly Schedule -->
+            <div class="lg:col-span-1 bg-white border border-od-dark/10 p-6 rounded-2xl shadow-sm h-[400px] overflow-y-auto">
+                <h3 class="text-lg font-serif mb-4">Weekly Schedule</h3>
+                <div class="text-sm space-y-4">
+                    <div class="border-l-2 border-od-accent pl-3">
+                        <p class="font-bold text-od-dark">Sunday</p>
+                        <div class="mt-1 space-y-2">
+                            <div class="flex justify-between items-center bg-od-bg p-2 rounded"><span class="opacity-80">08:00 - 10:00</span> <span class="font-medium">Anatomy</span></div>
+                            <div class="flex justify-between items-center bg-od-bg p-2 rounded"><span class="opacity-80">10:00 - 12:00</span> <span class="font-medium">Chemistry</span></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- ================= CONTRIBUTOR VIEW ================= -->
-        <div id="view-contributor" class="hide bg-od-dark min-h-screen text-od-bg">
-            <div class="max-w-7xl mx-auto px-6 md:px-12 pt-12 pb-24">
-                <div class="flex justify-between items-center mb-12">
-                    <div>
-                        <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Contributor Portal</p>
-                        <h2 class="font-serif text-4xl">Library control</h2>
-                    </div>
-                    <button onclick="document.getElementById('add-modal').classList.remove('hide')" class="bg-[#ceb57f] text-od-dark px-6 py-3 rounded-full font-medium hover:bg-white transition flex items-center gap-2">
-                        + Add material
-                    </button>
+            <!-- Progress Chart -->
+            <div class="lg:col-span-1 bg-white border border-od-dark/10 p-6 rounded-2xl shadow-sm h-[400px] flex flex-col items-center justify-center relative">
+                <h3 class="text-lg font-serif mb-2 w-full text-left absolute top-6 left-6">Weekly Progress</h3>
+                <div class="w-48 h-48 mt-8">
+                    <canvas id="progressChart"></canvas>
                 </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div class="bg-[#24332f] border border-gray-700 rounded-2xl p-6">
-                        <p class="text-3xl font-serif mb-2" id="stat-total">0</p>
-                        <p class="text-xs uppercase tracking-widest text-gray-400">Materials</p>
-                    </div>
-                    <div class="bg-[#24332f] border border-gray-700 rounded-2xl p-6">
-                        <p class="text-3xl font-serif mb-2" id="stat-pub">0</p>
-                        <p class="text-xs uppercase tracking-widest text-gray-400">Published</p>
-                    </div>
-                    <div class="bg-[#24332f] border border-gray-700 rounded-2xl p-6">
-                        <p class="text-3xl font-serif mb-2">0</p>
-                        <p class="text-xs uppercase tracking-widest text-gray-400">In Review</p>
-                    </div>
-                    <div class="bg-[#24332f] border border-gray-700 rounded-2xl p-6">
-                        <p class="text-3xl font-serif mb-2">9/9</p>
-                        <p class="text-xs uppercase tracking-widest text-gray-400">Modules Covered</p>
-                    </div>
-                </div>
-
-                <div class="bg-[#24332f] border border-gray-700 rounded-3xl p-8">
-                    <div class="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
-                        <h3 class="font-serif text-xl">Published library</h3>
-                    </div>
-                    
-                    <div class="space-y-4" id="materials-list">
-                        <!-- Populated by JS -->
-                        <div class="text-center text-gray-500 py-10">Loading materials...</div>
-                    </div>
-                </div>
+                <p id="chart-msg" class="text-sm opacity-60 mt-4 text-center">Add tasks to track progress</p>
             </div>
         </div>
-    </main>
+    </section>
+
+    <!-- Developer Signature -->
+    <section class="max-w-5xl mx-auto px-6 py-10">
+        <div class="mt-12 flex flex-col items-center justify-center text-center">
+            <p class="text-xs uppercase tracking-[0.2em] text-od-dark/50 font-semibold mb-1">Developed & Engineered by</p>
+            <div class="flex items-center gap-4">
+                <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-od-accent opacity-50"></div>
+                <h4 class="font-serif text-3xl italic text-gemini-animated">Essed Islam Adem</h4>
+                <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-od-accent opacity-50"></div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="border-t border-od-border py-8 px-6 md:px-12 flex justify-center items-center text-xs text-od-muted bg-od-bg text-center" id="main-footer">
+    <footer class="max-w-7xl mx-auto px-6 py-12 border-t border-od-dark/10 flex justify-center items-center opacity-60 text-xs">
         <p>© 2026 Odonto — Faculty of Medicine, Amar Telidji University of Laghouat.</p>
     </footer>
 
-    <!-- Chat Bot FAB (Animated Gradient) -->
-    <button onclick="toggleChat()" class="fixed bottom-6 right-6 bg-gemini-animated px-5 py-3 rounded-full shadow-lg font-medium hover:scale-105 transition-transform flex items-center gap-2 z-50 text-white">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-        Ask the tutor
-    </button>
+    <!-- AI Chat Widget -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <div id="ai-chat-window" class="bg-white w-80 shadow-2xl rounded-2xl mb-4 border border-od-dark/10 overflow-hidden transform scale-0 origin-bottom-right transition-transform duration-300 opacity-0">
+            <div class="p-4 relative overflow-hidden text-white">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient"></div>
+                <div class="relative z-10 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-semibold">Odonto Tutor</h4>
+                        <p class="text-xs opacity-80">Powered by Gemini AI</p>
+                    </div>
+                    <button id="close-ai" class="hover:opacity-70">✕</button>
+                </div>
+            </div>
+            <div id="chat-messages" class="p-4 h-64 overflow-y-auto bg-od-bg/30 text-sm space-y-3">
+                <div class="bg-white border border-gray-100 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] text-gray-700">
+                    Hello! I'm your AI tutor for first-year dentistry. Ask me anything about your modules!
+                </div>
+            </div>
+            <div class="p-3 border-t border-od-dark/10 bg-white flex gap-2">
+                <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 text-sm bg-od-bg px-3 py-2 rounded-xl focus:outline-none">
+                <button id="send-chat" class="px-3 py-2 rounded-xl text-white relative overflow-hidden group bg-od-dark">Send</button>
+            </div>
+        </div>
 
-    <!-- Chat Modal -->
-    <div id="chat-modal" class="fixed bottom-20 right-6 w-full max-w-sm bg-white rounded-2xl shadow-2xl border border-od-border flex flex-col overflow-hidden z-50 hide" style="height: 500px; max-height: 80vh;">
-        <!-- Animated Header -->
-        <div class="bg-gemini-animated p-4 flex justify-between items-center shadow-md z-10 text-white">
-            <div>
-                <h3 class="font-medium drop-shadow-sm">Odonto Tutor</h3>
-                <p class="text-xs opacity-90">Powered by Gemini AI</p>
-            </div>
-            <button onclick="toggleChat()" class="opacity-80 hover:opacity-100 transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <div id="chat-history" class="flex-grow p-4 overflow-y-auto chat-scroll bg-od-bg flex flex-col gap-4">
-            <div class="self-start bg-white border border-od-border shadow-sm rounded-2xl rounded-tl-sm p-4 text-sm max-w-[85%] text-od-dark leading-relaxed">
-                Hello! I'm your AI tutor for first-year dentistry. You can ask me to explain concepts, summarize modules, or generate practice MCQs. How can I help you today?
-            </div>
-        </div>
-        <div class="p-3 bg-white border-t border-od-border">
-            <div class="flex items-center bg-od-bg rounded-full px-4 py-2 border border-od-border focus-within:border-od-accent transition">
-                <input type="text" id="chat-input" placeholder="Type your question..." class="bg-transparent border-none outline-none flex-grow text-sm py-1" onkeypress="if(event.key === 'Enter') sendChatMessage()">
-                <button onclick="sendChatMessage()" class="text-od-dark hover:text-od-accent ml-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                </button>
-            </div>
-        </div>
+        <button id="ai-toggle-btn" class="px-5 py-3 rounded-full text-white shadow-lg flex items-center gap-2 hover:-translate-y-1 transition-transform relative overflow-hidden group">
+            <span class="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-[length:200%_200%] animate-gradient"></span>
+            <span class="font-medium text-sm relative z-10">Ask the tutor</span>
+        </button>
     </div>
 
-    <!-- Add Material Modal (Contributor) -->
-    <div id="add-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hide">
-        <div class="bg-od-dark text-od-bg rounded-3xl max-w-lg w-full p-8 border border-gray-700 shadow-2xl relative">
-            <button onclick="document.getElementById('add-modal').classList.add('hide')" class="absolute top-6 right-6 text-gray-400 hover:text-white">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-            <h3 class="font-serif text-2xl mb-6">Add Material</h3>
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-1">Title</label>
-                    <input type="text" id="mat-title" class="w-full bg-[#24332f] border border-gray-600 rounded-lg px-4 py-2 text-white outline-none focus:border-[#ceb57f]">
-                </div>
-                <div>
-                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-1">Module</label>
-                    <select id="mat-module" class="w-full bg-[#24332f] border border-gray-600 rounded-lg px-4 py-2 text-white outline-none focus:border-[#ceb57f]">
-                        <option>Biochemistry</option>
-                        <option>Biophysics</option>
-                    </select>
-                </div>
-                <button onclick="document.getElementById('add-modal').classList.add('hide')" class="w-full bg-[#ceb57f] text-od-dark py-3 rounded-xl font-medium mt-4 hover:bg-white transition">Mock Publish</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div id="toast">Message</div>
-
-    <!-- JavaScript Application Logic -->
     <script>
-        const MODULES_LIST = [
-            { name: "Biochemistry", desc: "Biomolecules, enzymes and cellular metabolism" },
-            { name: "Biomathematics & Statistics", desc: "Descriptive statistics, probability and hypothesis testing" },
-            { name: "Biophysics", desc: "Physical principles applied to the human body" },
-            { name: "Chemistry", desc: "General and organic chemistry foundations" },
-            { name: "General Physiology", desc: "Cell, nerve, muscle, blood and homeostasis" },
-            { name: "General Anatomy", desc: "Terminology, osteology, joints and muscles" },
-            { name: "Histology & Embryology", desc: "Tissues under the microscope and early development" },
-            { name: "SSH", desc: "Sciences Sociales et Humaines" },
-            { name: "History of Algeria", desc: "National history and the medical tradition" }
-        ];
+        document.addEventListener('DOMContentLoaded', () => {
+            // AI Chat toggle
+            const aiBtn = document.getElementById('ai-toggle-btn');
+            const aiWindow = document.getElementById('ai-chat-window');
+            const closeAiBtn = document.getElementById('close-ai');
+            const sendChatBtn = document.getElementById('send-chat');
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
 
-        // 1. Navigation & Auth Mock
-        window.currentUser = null;
-        window.navigate = function(view) {
-            document.getElementById('view-home').classList.add('hide');
-            document.getElementById('view-dashboard').classList.add('hide');
-            document.getElementById('view-contributor').classList.add('hide');
-            document.getElementById('main-footer').classList.remove('hide');
+            aiBtn.addEventListener('click', () => {
+                aiWindow.classList.remove('scale-0', 'opacity-0');
+                aiWindow.classList.add('scale-100', 'opacity-100');
+            });
+            closeAiBtn.addEventListener('click', () => {
+                aiWindow.classList.add('scale-0', 'opacity-0');
+                aiWindow.classList.remove('scale-100', 'opacity-100');
+            });
+
+            sendChatBtn.addEventListener('click', () => {
+                const txt = chatInput.value.trim();
+                if(!txt) return;
+                
+                // User msg
+                chatMessages.innerHTML += `<div class="bg-od-dark text-white p-3 rounded-2xl rounded-tr-none shadow-sm ml-auto max-w-[85%]">${txt}</div>`;
+                chatInput.value = '';
+                
+                // Simulated AI response
+                setTimeout(() => {
+                    chatMessages.innerHTML += `<div class="bg-white border border-gray-100 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] text-gray-700">That's an excellent question regarding your dental curriculum. Make sure to review your lecture notes and EMD past papers for this topic!</div>`;
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 600);
+            });
+
+            // Todo & Chart Logic
+            const todoForm = document.getElementById('todo-form');
+            const todoInput = document.getElementById('todo-input');
+            const todoList = document.getElementById('todo-list');
+            const taskCountTxt = document.getElementById('task-count');
+            const chartMsg = document.getElementById('chart-msg');
             
-            if(view === 'home') document.getElementById('view-home').classList.remove('hide');
-            if(view === 'dashboard') {
-                if(!window.currentUser) return showToast("Please sign in to view dashboard");
-                document.getElementById('view-dashboard').classList.remove('hide');
-                setTimeout(updateChartData, 100); // refresh chart size
-            }
-            if(view === 'contributor') {
-                if(!window.currentUser) return showToast("Restricted Area: Please sign in");
-                document.getElementById('view-contributor').classList.remove('hide');
-                document.getElementById('main-footer').classList.add('hide');
-            }
-            window.scrollTo(0,0);
-        }
+            let tasks = [];
+            let progressChart = null;
 
-        window.mockLogin = function() {
-            showToast("Logging in securely...");
-            setTimeout(() => {
-                document.getElementById('nav-login-btn').classList.add('hide');
-                document.getElementById('nav-dashboard-btn').classList.remove('hide');
-                window.currentUser = { uid: 'mock-user-123' };
-                showToast("Welcome back!");
-            }, 800);
-        }
+            const initChart = () => {
+                const ctx = document.getElementById('progressChart').getContext('2d');
+                progressChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Completed', 'Pending'],
+                        datasets: [{
+                            data: [0, 1],
+                            backgroundColor: ['#3a634d', '#e5e7eb'],
+                            borderWidth: 0,
+                            cutout: '75%'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            };
 
-        // 2. Render Modules
-        function renderModules() {
-            const grid = document.getElementById('modules-grid');
-            grid.innerHTML = MODULES_LIST.map((mod, index) => `
-                <div class="bg-white border border-od-border rounded-2xl p-6 hover:shadow-lg transition cursor-pointer group flex flex-col h-full">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs text-od-muted">0${index + 1}</span>
-                        <svg class="w-4 h-4 text-od-muted group-hover:text-od-dark transition transform group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </div>
-                    <h3 class="font-serif text-2xl text-od-dark mb-2">${mod.name}</h3>
-                    <p class="text-sm text-od-muted leading-relaxed mb-8 flex-grow">${mod.desc}</p>
-                    <div class="border-t border-od-border pt-4 text-right">
-                        <span class="text-[10px] uppercase tracking-widest text-od-muted font-medium">Open Module</span>
-                    </div>
-                </div>
-            `).join('');
-        }
+            const updateUI = () => {
+                todoList.innerHTML = '';
+                let completed = 0;
+                tasks.forEach((task, index) => {
+                    if (task.done) completed++;
+                    const div = document.createElement('div');
+                    div.className = `flex justify-between items-center p-3 rounded-lg border transition ${task.done ? 'bg-od-dark/5 opacity-70' : 'bg-white'}`;
+                    div.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" ${task.done ? 'checked' : ''} onchange="toggleTask(${index})" class="w-4 h-4 cursor-pointer">
+                            <span class="text-sm font-medium ${task.done ? 'line-through' : ''}">${task.text}</span>
+                        </div>
+                        <button onclick="deleteTask(${index})" class="text-red-400 hover:text-red-600 text-xs">Delete</button>
+                    `;
+                    todoList.appendChild(div);
+                });
+                taskCountTxt.innerText = `${completed}/${tasks.length}`;
+                if(tasks.length > 0) {
+                    chartMsg.style.display = 'none';
+                    progressChart.data.datasets[0].data = [completed, tasks.length - completed];
+                    progressChart.update();
+                } else {
+                    chartMsg.style.display = 'block';
+                    progressChart.data.datasets[0].data = [0, 1];
+                    progressChart.update();
+                }
+            };
 
-        // 3. Chat Logic
-        window.toggleChat = function() {
-            const modal = document.getElementById('chat-modal');
-            modal.classList.toggle('hide');
-            if(!modal.classList.contains('hide')) document.getElementById('chat-input').focus();
-        }
+            window.toggleTask = (i) => { tasks[i].done = !tasks[i].done; updateUI(); };
+            window.deleteTask = (i) => { tasks.splice(i, 1); updateUI(); };
 
-        window.fillAsk = function(text) {
-            toggleChat();
-            document.getElementById('chat-input').value = text;
-            setTimeout(sendChatMessage, 200);
-        }
-
-        window.handleHeroAsk = function() {
-            const val = document.getElementById('hero-ask-input').value;
-            if(val.trim()) {
-                window.fillAsk(val);
-                document.getElementById('hero-ask-input').value = '';
-            }
-        }
-
-        window.sendChatMessage = function() {
-            const input = document.getElementById('chat-input');
-            const msg = input.value.trim();
-            if(!msg) return;
-
-            const chatBox = document.getElementById('chat-history');
-            chatBox.innerHTML += `
-                <div class="self-end bg-gemini-animated shadow-md rounded-tr-sm rounded-2xl p-4 text-sm max-w-[85%] text-white leading-relaxed">
-                    ${msg}
-                </div>`;
-            input.value = '';
-            chatBox.scrollTop = chatBox.scrollHeight;
-            
-            const loadingId = 'load-' + Date.now();
-            chatBox.innerHTML += `<div id="${loadingId}" class="self-start text-xs text-od-muted italic mt-2 ml-2">Thinking...</div>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Mock AI Response
-            setTimeout(() => {
-                document.getElementById(loadingId).remove();
-                chatBox.innerHTML += `
-                    <div class="self-start bg-white border border-od-border shadow-sm rounded-tl-sm rounded-2xl p-4 text-sm max-w-[85%] text-od-dark leading-relaxed">
-                        This is a simulated AI response. The Gemini API can be connected here!
-                    </div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 1000);
-        }
-
-        // 4. Study Planner & Chart.js Logic
-        let progressChart;
-
-        function initChart() {
-            const ctx = document.getElementById('progressChart').getContext('2d');
-            progressChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Completed', 'Pending'],
-                    datasets: [{
-                        data: [0, 1], // Start with 1 pending task for visual default
-                        backgroundColor: ['#2a423a', '#d8d4cb'],
-                        borderWidth: 0,
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '70%',
-                    plugins: {
-                        legend: { position: 'bottom', labels: { font: { family: 'Inter' } } }
-                    }
+            todoForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if(todoInput.value.trim()) {
+                    tasks.push({ text: todoInput.value.trim(), done: false });
+                    todoInput.value = '';
+                    updateUI();
                 }
             });
-            updateChartData();
-        }
 
-        window.updateChartData = function() {
-            if(!progressChart) return;
-            const todos = document.querySelectorAll('#todo-list li');
-            let completed = 0;
-            let pending = 0;
-
-            todos.forEach(li => {
-                const isChecked = li.querySelector('input[type="checkbox"]').checked;
-                if(isChecked) completed++;
-                else pending++;
-            });
-
-            // Prevent empty chart breaking visually
-            if(completed === 0 && pending === 0) {
-                progressChart.data.datasets[0].data = [0, 1]; 
-            } else {
-                progressChart.data.datasets[0].data = [completed, pending];
-            }
-            progressChart.update();
-        }
-
-        window.addTodo = function() {
-            const input = document.getElementById('todo-input');
-            const val = input.value.trim();
-            if(!val) return;
-
-            const list = document.getElementById('todo-list');
-            const li = document.createElement('li');
-            li.className = 'flex items-center justify-between bg-white p-4 rounded-xl border border-od-border transition-all shadow-sm';
-            li.innerHTML = `
-                <div class="flex items-center gap-3">
-                    <input type="checkbox" onchange="toggleTodo(this)" class="w-5 h-5 text-od-accent rounded focus:ring-od-accent cursor-pointer">
-                    <span class="text-sm font-medium text-od-dark transition-all duration-300">${val}</span>
-                </div>
-                <button onclick="deleteTodo(this)" class="text-gray-400 hover:text-red-500 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
-            `;
-            list.prepend(li);
-            input.value = '';
-            updateChartData(); // Update Chart Live
-        }
-
-        window.toggleTodo = function(checkbox) {
-            const textSpan = checkbox.nextElementSibling;
-            textSpan.classList.toggle('line-through');
-            textSpan.classList.toggle('text-gray-400');
-            updateChartData(); // Update Chart Live
-        }
-
-        window.deleteTodo = function(btn) {
-            btn.parentElement.remove();
-            updateChartData(); // Update Chart Live
-        }
-
-        window.addTimetableRow = function() {
-            const tbody = document.getElementById('timetable-body');
-            const row = document.createElement('div');
-            row.className = 'grid grid-cols-6 gap-3 text-sm mt-3';
-            row.innerHTML = `
-                <input type="text" placeholder="Time" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark font-medium shadow-sm">
-                <input type="text" placeholder="-" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark shadow-sm">
-                <input type="text" placeholder="-" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark shadow-sm">
-                <input type="text" placeholder="-" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark shadow-sm">
-                <input type="text" placeholder="-" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark shadow-sm">
-                <input type="text" placeholder="-" class="w-full bg-white border border-od-border rounded-lg p-3 text-center outline-none focus:border-od-accent text-od-dark shadow-sm">
-            `;
-            tbody.appendChild(row);
-        }
-
-        window.showToast = function(msg) {
-            const toast = document.getElementById('toast');
-            toast.innerText = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        // Initialize on load
-        window.onload = () => {
-            renderModules();
-            initChart(); // Initialize Chart.js
-        };
-
+            initChart();
+            updateUI();
+        });
     </script>
 </body>
 </html>
